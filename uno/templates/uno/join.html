@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UNO - Join a room</title>
+    </head>
+    <body>
+        <form action="{% url 'joinroom' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="name">
+            <input type="text" name="roomname">
+            <input type="submit">
+        </form>
+        or
+        <form action="{% url 'create' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="name">
+            <input type="text" name="roomname">
+            <input type="submit">
+        </form>
+    </body>
+</html>

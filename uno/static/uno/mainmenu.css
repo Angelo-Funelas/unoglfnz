@@ -1,0 +1,171 @@
+body {
+  font-family: ArialBold;
+}
+
+/* Profiles Menu */
+#profile_container {
+  display: none;
+  background: white;
+  border-radius: 0px 25px 25px 25px;
+  position: fixed;
+  top: 300px;
+  left: 150px;
+  padding: 10px;
+  width: 600px;
+  min-height: 100px;
+  text-align: left;
+  z-index: 1;
+}
+
+.shadow {
+  -webkit-filter: drop-shadow(5px 5px 5px #000000);
+  filter: drop-shadow(5px 5px 5px #000000);
+}
+
+.front_green {
+  display: block;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  background: hsl(145deg 63.4% 41.8%);
+  color: white;
+  transform: translateY(-6px);
+}
+
+.player_card_main {
+  display: inline-block;
+}
+
+.mm_avatar {
+  display: inline-block;
+  vertical-align: middle;
+  width: 80px;
+  height: 80px;
+  margin: 15px;
+  margin-left: 0px;
+  border-radius: 50%;
+}
+
+.pushable_green {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background: hsl(145deg 63.2% 49%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+#nickname {
+  width: 150px;
+  display: inline-block;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  width: 600px;
+  height: 250px;
+  left: 0;
+  right: 0;
+  top: 80px;
+  padding: 15px;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background: rgb(231, 76, 60);
+  border-radius: 15px;
+  z-index: 1;
+}
+
+#main_menu {
+  display: fixed;
+  top: 0px;
+  text-align: center;
+  padding: 25px;
+}
+
+#play_area {
+  display: none;
+}
+
+#uno_logo {
+  width: 250px;
+  -webkit-filter: drop-shadow(5px 5px 5px #000000);
+  filter: drop-shadow(5px 5px 5px #000000);
+  margin-bottom: 15px;
+}
+
+.main_menu_menu {
+  padding: 15px;
+  min-height: 600px;
+  width: 400px;
+  background: white;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-filter: drop-shadow(5px 5px 5px #000000);
+  filter: drop-shadow(5px 5px 5px #000000);
+}
+
+.themeinput {
+  margin-top: 15px;
+  font-size: 20px;
+  -webkit-filter: drop-shadow(0px 0px 2px #000000);
+  filter: drop-shadow(0px 0px 2px #000000);
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  background: #95a5a6;
+  color: white;
+  border: solid 2px #95a5a6;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button {
+  font-size: 20px;
+  -webkit-filter: drop-shadow(2px 2px .2px #000000);
+  filter: drop-shadow(2px 2px .2px #000000);
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  background: #2ecc71;
+  color: white;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pushable {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background: hsl(340deg 100% 32%);
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+.front {
+  display: block;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  background: hsl(345deg 100% 47%);
+  color: white;
+  transform: translateY(-6px);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+}

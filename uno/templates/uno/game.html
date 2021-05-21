@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Uno BETA by GeloFunz</title>
+        <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}">
+        <link rel="stylesheet" href="{% static 'uno/style.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- Background -->
+        <style>
+            @font-face {
+                font-family: ArialBold;
+                src: url({% static 'uno/ArialBold.ttf' %});
+            }
+            #background {
+                position:fixed;
+                display:inline-block;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                background-image: url("{% static 'uno/background.png' %}");
+            }
+        </style>
+        <div id="agreement_container">
+            <div id="agreement">
+                This is just for fun, there may be some bugs. Enjoy :)
+                <button class="pushable_green" id="iunderstand" onclick="document.getElementById('agreement_container').style.display = 'none'">
+                    <span class="front_green">
+                    I Undestand.
+                    </span>
+                </button>            
+            </div>
+        </div>
+        <!-- Popup -->
+        <div id="Popup" class="popup shadow">
+            <div id="PopupMessage">
+                You have been disconnected from the server.
+            </div>
+            <button class="pushable_green" onclick="Close_Popup()">
+                <span class="front_green">
+                  Ok
+                </span>
+              </button>
+        </div>
+        <div id="background"></div>
+        <img src="{% static 'uno/symbols/unmuted.png' %}" id="music_icon" onclick="toggleunmute()">
+        <!-- Main Menu-->
+        <div id="main_menu" class="screen">
+            <div class="main_menu_menu">
+                <img src="{% static 'uno/logo.png' %}" id="uno_logo"><br>
+                <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"></div><input type="text" class="themeinput" id="nickname" placeholder="Name">
+                <div id="profile_container" class="shadow">
+                    Choose
+                    <div id="profile_container_pics">
+
+                    </div>
+                </div>
+                <input type="text" class="themeinput" id="roomNameInput" placeholder="Room Code">
+                <div id="main_menu_error"></div>
+                <button class="pushable" onclick="createRoom()">
+                    <span class="front">
+                      Play
+                    </span>
+                  </button>
+            </div>
+        </div>
+        <div id="play_area" class="screen">
+            <img src="{% static 'uno/table.png' %}" id="game_table">
+            <img src="{% static 'uno/arrow.png' %}" id="game_table_arrow">
+            <img src="{% static 'uno/deck.png' %}" id="uno_deck" onclick="requestCard()">
+            <div id="chatbox">
+                <form onsubmit="return validateMessage()">
+                    <input type="text" id="ClientChatBox" placeholder="&quot;/&quot; to chat. ">
+                    <div id="Chat_Container"></div>
+                </form>
+            </div>
+            <div id="table_card_container"></div>
+            <div id="game_table_board">
+                Waiting for players.
+                <button class="pushable_green" id="startgame" onclick="startGame()" style="display: none;">
+                    <span class="front_green">
+                        Start
+                    </span>
+                </button> 
+            </div>
+            <div id="opponents-container">
+            </div>
+            <div id="playerhand">
+            </div>
+        </div>
+        <input type="text" id="roomID" class="hidden">
+        <style>
+            #roomID {
+                display: none;
+            }
+        </style>
+        <script src="{% static 'uno/unogame.js' %}"></script>
+        <!-- AUDIO FILES -->
+        <audio preload="auto" src="{% static 'uno/sounds/menu.mp3' %}" id="menumusic" loop="true"></audio>
+        <script>
+            //menu music
+            $( '#iunderstand' ).click( function() {
+                $('#menumusic')[0].play();
+                $('#menumusic')[0].volume = 0.6;
+            });
+            function toggleunmute(){
+                var music_icon = document.getElementById('music_icon');
+                var menu_music = document.getElementById('menumusic');
+                if (menu_music.volume == 0) {
+                    menu_music.volume = 0.6;
+                    music_icon.src = '/static/uno/symbols/unmuted.png';
+                } else {
+                    menu_music.volume = 0;
+                    music_icon.src = '/static/uno/symbols/muted.png';
+                }
+            }
+            </script>
+    </body>
+</html>

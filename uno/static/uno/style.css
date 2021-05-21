@@ -1,0 +1,223 @@
+body {
+    background: black;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* AGREEMENT BEGINNING */
+#agreement {
+    display: block;
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    z-index: 3;
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+#agreement_container {
+    background: black;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+#opponents-container {
+    width: 100%;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    max-height: 204px;
+    overflow: hidden;
+}
+
+#music_icon {
+    position: fixed;
+    width: 50px;
+    z-index: 1;
+    right: 0px;
+}
+
+/* Game Table */
+#game_table_board {
+    background: #a29bfe;
+    border-radius: 50px;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    padding-top: 30px;
+    font-size: 40px;
+    position: fixed;
+    width: 500px;
+    min-height: 60px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+}
+.opponent_hand {
+    text-align: center;
+    overflow: hidden;
+}
+.opponent_hand img {
+    height: 50px;
+}
+#game_table {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px; /* Negative half of height. */
+    margin-left: -200px; /* Negative half of width. */
+}
+
+#game_table_arrow {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    animation: 2s spin linear infinite;
+}
+
+
+
+#table_card_container {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    text-align: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.opponent_display {
+    display: inline-block;
+    text-align: left;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    margin: 10px;
+    background: rgba(236, 240, 241,1.0);
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.avatar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+  }
+  
+  .title {
+    font-size: 10vw;
+    color: white;
+  }
+  
+  canvas {
+    width: 100%;
+  }
+
+.card {
+    display: absolute;
+    height: 100px;
+    transition: 1s;
+    animation: exit .25s ease-in;
+    animation-play-state: paused;
+}
+@keyframes exit {
+    0% {width: 64.03px;}
+    100% {width: 0px;}
+}
+#uno_deck {
+    position: fixed;
+    height: 180px;
+    width: 116.92px;
+    top: 40%;
+    left: 10%;
+    margin-top: -90px; /* Negative half of height. */
+    margin-left: -58.46px; /* Negative half of width. */
+}
+#main_menu_error {
+    color: red;
+}
+.table_card {
+    position: fixed;
+    height: 280px;
+    width: 179.28px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px; /* Negative half of height. */
+    margin-left: -89.64px; /* Negative half of width. */
+    animation: .4s ease-out placeCard;
+}
+@keyframes placeCard {
+    0% {opacity: 0.6; transform: rotate(0deg) scale(1.2);}
+    100% {opacity: 1; transform: rotate(720deg) scale(1);}
+}
+.card_opponent {
+    display: absolute;
+    height: 100px;
+    transition: 1s;
+    
+}
+.card:hover {
+}
+#playerhand {
+    height: 100px;
+    position: absolute;
+    text-align: center;
+    bottom: 0px;
+    padding: 10px;
+    margin-left:auto;
+    margin-right:auto;
+    left: 0;
+    right: 0;
+    max-width: 800px;
+    border-radius: 10px;
+}
+#chatbox {
+    padding: 10px;
+    background: white;
+    border-radius: 15px;
+    position: fixed;
+    height: 300px;
+    width: 220px;
+    top: 72%;
+    right: 6%;
+    margin-top: -150px; /* Negative half of height. */
+    margin-right: -60px; /* Negative half of width. */
+}
+#chatbox input {
+}
+#Chat_Container {
+    height: 260px;
+    overflow-y: scroll;
+}
+.small_card {
+    width: 10px;
+}
