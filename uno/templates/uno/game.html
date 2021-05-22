@@ -15,14 +15,6 @@
                 font-family: ArialBold;
                 src: url({% static 'uno/ArialBold.ttf' %});
             }
-            #background {
-                position:fixed;
-                display:inline-block;
-                width: 100%;
-                height: 100%;
-                z-index: -1;
-                background-image: url("{% static 'uno/background.png' %}");
-            }
         </style>
         <div id="agreement_container">
             <div id="agreement">
@@ -33,6 +25,16 @@
                     </span>
                 </button>            
             </div>
+        </div>
+        <div id="animated-bg">
+            <ul class="box-area">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
         <!-- Popup -->
         <div id="Popup" class="popup shadow">
@@ -45,7 +47,6 @@
                 </span>
               </button>
         </div>
-        <div id="background"></div>
         <img src="{% static 'uno/symbols/unmuted.png' %}" id="music_icon" onclick="toggleunmute()">
         <!-- Main Menu-->
         <div id="main_menu" class="screen">

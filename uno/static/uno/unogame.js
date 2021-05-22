@@ -1,7 +1,7 @@
 var socket;
 function setup(){
-    socket = io.connect('https://unoglfnz.herokuapp.com/');
-    //socket = io.connect('http://localhost:3000/');
+    //socket = io.connect('https://unoglfnz.herokuapp.com/');
+    socket = io.connect('http://localhost:3000/');
     //Server Events
     socket.on('UpdateGame', UpdateGame);
     socket.on('updatePlayers', updatePlayers);
@@ -66,6 +66,7 @@ function setClientID(data){
     window.ClientID = data;
 };
 function placeCardServer(){
+    this.setAttribute('onclick','');
     this.style.animationPlayState = 'running';
     var folder = this.dataset.folder;
     var filename = this.dataset.filename;
@@ -129,6 +130,9 @@ function createRoom() {
 }
 function confirmedRoomJoin(data) {
     switchState('play_area')
+    document.getElementById('game_table_board').style.display = 'block';
+    document.getElementById('playerhand').innerHTML = '';
+    document.getElementById('Chat_Container').innerHTML = '';
     if(data == 'owner'){
         document.getElementById('startgame').style.display = 'block';
     } else {
@@ -137,6 +141,14 @@ function confirmedRoomJoin(data) {
 }
 function roomstartederror(){
     document.getElementById('main_menu_error').innerText = "Room game already started. Iniwan ka :'(";
+}
+function drawAnimation(src) {
+    var hand = document.getElementById('playerhand')
+    var draw_card = document.createElement("img");
+    draw_card.src = src;
+    draw_card.className = 'uno_draw_animation';
+    draw_card.addEventListener("animationend", function() {this.remove()});
+    hand.appendChild(draw_card);
 }
 /* GAME MECHANICS AREA */
 //start the game
@@ -159,6 +171,7 @@ function recieveCard(data){
     new_card.setAttribute('onclick','placeCardServer.call(this)');
     new_card.addEventListener("animationend", function() {this.remove(); sendPlayerData()});
     new_card.src = `/static/uno/${folder}/${filename}.png`;
+    drawAnimation(new_card.src);
     hand.appendChild(new_card);
     sendPlayerData()
 }
@@ -174,6 +187,7 @@ function Message(type, message) {
     } else {
         console.log(`recived message: ${message}`)
         document.getElementById('Chat_Container').innerHTML += `<br>${message}`;
+        $('#Chat_Container').animate({scrollTop: $('#Chat_Container').prop("scrollHeight")}, 500);
     }
 }
 function sendPlayerData(){

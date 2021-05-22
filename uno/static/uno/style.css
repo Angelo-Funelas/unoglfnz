@@ -2,6 +2,7 @@ body {
     background: black;
     padding: 0px;
     margin: 0px;
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
 }
 
 /* AGREEMENT BEGINNING */
@@ -76,7 +77,6 @@ body {
     margin-top: -200px; /* Negative half of height. */
     margin-left: -200px; /* Negative half of width. */
 }
-
 #game_table_arrow {
     position: fixed;
     width: 500px;
@@ -87,9 +87,6 @@ body {
     margin-left: -250px; /* Negative half of width. */
     animation: 2s spin linear infinite;
 }
-
-
-
 #table_card_container {
     position: fixed;
     width: 500px;
@@ -142,14 +139,20 @@ body {
   }
 
 .card {
-    display: absolute;
-    height: 100px;
-    transition: 1s;
+    height: 125px;
+    width: 80px;
+    transition: .2s;
     animation: exit .25s ease-in;
     animation-play-state: paused;
+    margin: 0px;
+    display: inline-block;
+}
+.card:hover {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 @keyframes exit {
-    0% {width: 64.03px;}
+    0% {width: 80px;}
     100% {width: 0px;}
 }
 #uno_deck {
@@ -160,6 +163,36 @@ body {
     left: 10%;
     margin-top: -90px; /* Negative half of height. */
     margin-left: -58.46px; /* Negative half of width. */
+}
+.uno_draw_animation {
+    position: fixed;
+    height: 180px;
+    width: 116.92px;
+    top: 40%;
+    left: 10%;
+    margin-top: -90px; /* Negative half of height. */
+    margin-left: -58.46px; /* Negative half of width. */
+    animation: drawanimation .2s ease-out;
+}
+@keyframes drawanimation {
+    0% {
+        position: fixed;
+        height: 180px;
+        width: 116.92px;
+        top: 40%;
+        left: 10%;
+        margin-top: -90px; /* Negative half of height. */
+        margin-left: -58.46px; /* Negative half of width. */
+    }
+    100% {
+        position: fixed;
+        height: 180px;
+        width: 116.92px;
+        top: 90%;
+        left: 50%;
+        margin-top: -90px; /* Negative half of height. */
+        margin-left: -58.46px; /* Negative half of width. */
+    }
 }
 #main_menu_error {
     color: red;
@@ -176,7 +209,7 @@ body {
     animation: .4s ease-out placeCard;
 }
 @keyframes placeCard {
-    0% {opacity: 0.6; transform: rotate(0deg) scale(1.2);}
+    0% {opacity: 0.6; transform: rotate(0deg) scale(2);}
     100% {opacity: 1; transform: rotate(720deg) scale(1);}
 }
 .card_opponent {
@@ -184,8 +217,6 @@ body {
     height: 100px;
     transition: 1s;
     
-}
-.card:hover {
 }
 #playerhand {
     height: 100px;
@@ -198,7 +229,9 @@ body {
     left: 0;
     right: 0;
     max-width: 800px;
-    border-radius: 10px;
+    overflow: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 #chatbox {
     padding: 10px;
@@ -220,4 +253,78 @@ body {
 }
 .small_card {
     width: 10px;
+}
+#animated-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgb(52,231,228);
+    background: linear-gradient(90deg, rgba(52,231,228,1) 5%, rgba(11,232,129,1) 81%);
+}
+.box-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 13;
+}
+.box-area li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 25px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.5);
+    animation: bg 20s linear infinite;
+    bottom: -150px;
+}
+.box-area li:nth-child(1) {
+    left: 86%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+.box-area li:nth-child(2) {
+    left: 12%;
+    width: 30px;
+    height: 30px;
+    animation-delay: 1.5s;
+    animation-duration: 10s;
+}
+.box-area li:nth-child(3) {
+    left: 70%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 5.5s;
+}
+.box-area li:nth-child(4) {
+    left: 42%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 15s;
+}
+.box-area li:nth-child(5) {
+    left: 85%;
+    width: 40px;
+    height: 40px;
+    animation-delay: 0s;
+}
+.box-area li:nth-child(6) {
+    left: 15%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3.5s;
+}
+@keyframes bg {
+    0% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-800px) rotate(360deg);
+        opacity: 0;
+    }
 }
