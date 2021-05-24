@@ -169,3 +169,11 @@ body {
 .pushable:active .front {
   transform: translateY(-2px);
 }
+#assetloader {
+  display: none;
+  overflow: scroll;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  z-index: 4;
+}

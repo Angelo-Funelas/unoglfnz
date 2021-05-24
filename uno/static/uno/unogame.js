@@ -1,7 +1,7 @@
 var socket;
-function setup(){
-    //socket = io.connect('https://unoglfnz.herokuapp.com/');
-    socket = io.connect('http://localhost:3000/');
+function setup() {
+    socket = io.connect('https://unoglfnz.herokuapp.com/');
+    //socket = io.connect('http://localhost:3000/');
     //Server Events
     socket.on('UpdateGame', UpdateGame);
     socket.on('updatePlayers', updatePlayers);
