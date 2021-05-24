@@ -13,6 +13,7 @@ function setup() {
     socket.on('roomstartederror', roomstartederror);
     socket.on('updatePlayerCards', updatePlayerCards);
     socket.on('message', Message);
+    socket.on('opponenthover', hoverCard);
     //Client Events
     socket.on('disconnect', disconnect);
 };
@@ -88,6 +89,7 @@ function placeCardClient(data){
     new_card.style.transform = `rotate(${randomRotation}deg)`;
     new_card.style.top = `${top}%`;
     new_card.style.left = `${left}%`;
+    new_card.draggable = false;
     document.getElementById('table_card_container').appendChild(new_card);
 }
 function updatePlayers(data){
@@ -142,13 +144,16 @@ function confirmedRoomJoin(data) {
 function roomstartederror(){
     document.getElementById('main_menu_error').innerText = "Room game already started. Iniwan ka :'(";
 }
-function drawAnimation(src) {
-    var hand = document.getElementById('playerhand')
-    var draw_card = document.createElement("img");
-    draw_card.src = src;
-    draw_card.className = 'uno_draw_animation';
-    draw_card.addEventListener("animationend", function() {this.remove()});
-    hand.appendChild(draw_card);
+function drawAnimation(owner, src) {
+    if (owner == 'self') {
+        var hand = document.getElementById('play_area')
+        var draw_card = document.createElement("img");
+        draw_card.src = src;
+        draw_card.className = 'uno_draw_animation';
+        draw_card.addEventListener("animationend", function() {this.remove()});
+        hand.appendChild(draw_card);
+    } else if (owner == 'opponent') {
+    }
 }
 /* GAME MECHANICS AREA */
 //start the game
@@ -171,7 +176,9 @@ function recieveCard(data){
     new_card.setAttribute('onclick','placeCardServer.call(this)');
     new_card.addEventListener("animationend", function() {this.remove(); sendPlayerData()});
     new_card.src = `/static/uno/${folder}/${filename}.png`;
-    drawAnimation(new_card.src);
+    new_card.draggable = false;
+    new_card.onmouseover = function(){sendHover(this)};
+    drawAnimation('self', new_card.src);
     hand.appendChild(new_card);
     sendPlayerData()
 }
@@ -185,7 +192,6 @@ function Message(type, message) {
     if (type == 'send') {
         socket.emit('message', `[${window.nickname}]: ${message}`);
     } else {
-        console.log(`recived message: ${message}`)
         document.getElementById('Chat_Container').innerHTML += `<br>${message}`;
         $('#Chat_Container').animate({scrollTop: $('#Chat_Container').prop("scrollHeight")}, 500);
     }
@@ -207,6 +213,37 @@ function gameStarted(data){
         requestCard()
     }
 }
+//hover effects
+function sendHover(card) {
+    var cards = $("#playerhand > img");
+    for(var i = 0; i < cards.length ; i++){
+        if (cards[i] == card) {
+            var data = {
+                id: ClientID,
+                i: i,
+                cardn: cards.length
+            }
+            console.log(data)
+            socket.emit('hovered', data)
+        }
+    }
+}
+function hoverCard(data) {
+    var opponentcards = document.getElementById(data.id).getElementsByClassName('opponent_hand')[0].querySelectorAll('img');
+    //opponent_hand.innerHTML = "";
+    var cardn = data.cardn
+    for(var i = 0; i < opponentcards.length ; i++){
+        if (data.i == i) {
+            opponentcards[i].style.marginRight = '5px';
+            var card_hover = i;
+        } else {
+            opponentcards[i].style.marginRight = '-10px';
+        }
+    }
+    resetopphand = setTimeout(function() {
+        opponentcards[card_hover].style.marginRight = '-10px';
+    }, 1000)
+}
 //When opponent's hand updates
 function updatePlayerCards(data) {
     console.log(data)
@@ -214,14 +251,9 @@ function updatePlayerCards(data) {
     opponent_hand.innerHTML = "";
     var cardn = data.cardn
     for(var i = 0; i < cardn ; i++){
-        if(i == cardn-1){
-            var cut_back = document.createElement("img");
-            cut_back.src = `/static/uno/specials/back.png`;
-            opponent_hand.appendChild(cut_back);
-        } else {
-            var cut_back = document.createElement("img");
-            cut_back.src = `/static/uno/specials/cut_back.png`;
-            opponent_hand.appendChild(cut_back);
-        }
+        var cut_back = document.createElement("img");
+        cut_back.src = `/static/uno/specials/back.png`;
+        cut_back.style.marginRight = '-10px';
+        opponent_hand.appendChild(cut_back);
     }
 }

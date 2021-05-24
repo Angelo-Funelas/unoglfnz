@@ -16,6 +16,18 @@
                 src: url({% static 'uno/ArialBold.ttf' %});
             }
         </style>
+        <style>
+            .opponent_draw_animation {
+                position: fixed;
+                height: 180px;
+                width: 116.92px;
+                top: 40%;
+                left: 10%;
+                margin-top: -90px; /* Negative half of height. */
+                margin-left: -58.46px; /* Negative half of width. */
+                transition: all .2s ease-out;
+            }
+        </style>
         <div id="assetloader">
             <img src="{% static 'uno/red/0.png' %}" class="preload"><img src="{% static 'uno/red/1.png' %}" class="preload"><img src="{% static 'uno/red/2.png' %}" class="preload"><img src="{% static 'uno/red/3.png' %}" class="preload"><img src="{% static 'uno/red/4.png' %}" class="preload"><img src="{% static 'uno/red/5.png' %}" class="preload"><img src="{% static 'uno/red/6.png' %}" class="preload"><img src="{% static 'uno/red/7.png' %}" class="preload"><img src="{% static 'uno/red/8.png' %}" class="preload"><img src="{% static 'uno/red/9.png' %}" class="preload"><img src="{% static 'uno/red/+2.png' %}" class="preload"><img src="{% static 'uno/red/stop.png' %}" class="preload"><img src="{% static 'uno/red/reverse.png' %}" class="preload">
             <img src="{% static 'uno/yellow/0.png' %}" class="preload"><img src="{% static 'uno/yellow/1.png' %}" class="preload"><img src="{% static 'uno/yellow/2.png' %}" class="preload"><img src="{% static 'uno/yellow/3.png' %}" class="preload"><img src="{% static 'uno/yellow/4.png' %}" class="preload"><img src="{% static 'uno/yellow/5.png' %}" class="preload"><img src="{% static 'uno/yellow/6.png' %}" class="preload"><img src="{% static 'uno/yellow/7.png' %}" class="preload"><img src="{% static 'uno/yellow/8.png' %}" class="preload"><img src="{% static 'uno/yellow/9.png' %}" class="preload"><img src="{% static 'uno/yellow/+2.png' %}" class="preload"><img src="{% static 'uno/yellow/stop.png' %}" class="preload"><img src="{% static 'uno/yellow/reverse.png' %}" class="preload">

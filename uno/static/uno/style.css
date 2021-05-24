@@ -63,10 +63,15 @@ body {
 }
 .opponent_hand {
     text-align: center;
-    overflow: hidden;
+    white-space: nowrap;
 }
 .opponent_hand img {
     height: 50px;
+    margin-right: -10px;
+    transition: all .4s;
+}
+.hovercard {
+    margin-right: 5px;
 }
 #game_table {
     position: fixed;
@@ -173,6 +178,7 @@ body {
     margin-top: -90px; /* Negative half of height. */
     margin-left: -58.46px; /* Negative half of width. */
     animation: drawanimation .2s ease-out;
+    transition: all .2s ease-out;
 }
 @keyframes drawanimation {
     0% {
