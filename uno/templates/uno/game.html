@@ -3,8 +3,8 @@
 <html>
     <head>
         <title>Uno BETA by --------</title>
-        <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.0">
-        <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.0">
+        <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.1">
+        <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
     </head>
@@ -88,7 +88,7 @@
             <div class="main_menu_menu">
                 <img src="{% static 'uno/logo.png' %}" id="uno_logo"><br>
                 <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"></div><input type="text" maxlength="12" class="themeinput" id="nickname" placeholder="Name">
-                <div id="profile_container" class="shadow">
+                <div id="profile_container">
                     Choose
                     <div id="profile_container_pics">
 
@@ -133,8 +133,8 @@
                 display: none;
             }
         </style>
-        <script src="{% static 'uno/unogame.js' %}?v=1.0.0"></script>
-        <script src="{% static 'uno/mainmenu.js' %}?v=1.0.0"></script>
+        <script src="{% static 'uno/unogame.js' %}?v=1.0.1"></script>
+        <script src="{% static 'uno/mainmenu.js' %}?v=1.0.1"></script>
         <!-- AUDIO FILES -->
         <audio preload="auto" src="{% static 'uno/sounds/menu.mp3' %}" id="menumusic" loop="true"></audio>
         <script>
