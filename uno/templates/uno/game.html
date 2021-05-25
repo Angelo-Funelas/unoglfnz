@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Uno BETA by GeloFunz</title>
+        <title>Uno BETA by --------</title>
         <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.0">
         <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -41,7 +41,7 @@
                 <div id="loading_assets">Loading Assets 0/54</div>
                 <button class="pushable_green" id="iunderstand" onclick="document.getElementById('agreement_container').style.display = 'none'">
                     <span class="front_green">
-                    I Undestand.
+                    I Understand.
                     </span>
                 </button>            
             </div>
@@ -70,16 +70,31 @@
         <img src="{% static 'uno/symbols/unmuted.png' %}" id="music_icon" onclick="toggleunmute()">
         <!-- Main Menu-->
         <div id="main_menu" class="screen">
+            <div id="devlog">
+                <h3>Dev Logs</h3>
+                v1.0.0:
+                <ul>
+                    <li>Deployed Repository Publicly</li>
+                </ul>
+                v1.0.1:
+                <ul>
+                    <li>Cleaned Code</li>
+                    <li>Added animations for opponents hovering and drawing cards</li>
+                    <li>Added automatic chat scrolling</li>
+                    <li class="highlight">Fixed multiple deck inconsistencies causing players to get 2 or more exactly the same cards</li>
+                    <li>Updated card place animations</li>
+                </ul>
+            </div>
             <div class="main_menu_menu">
                 <img src="{% static 'uno/logo.png' %}" id="uno_logo"><br>
-                <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"></div><input type="text" class="themeinput" id="nickname" placeholder="Name">
+                <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"></div><input type="text" maxlength="12" class="themeinput" id="nickname" placeholder="Name">
                 <div id="profile_container" class="shadow">
                     Choose
                     <div id="profile_container_pics">
 
                     </div>
                 </div>
-                <input type="text" class="themeinput" id="roomNameInput" placeholder="Room Code">
+                <input type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code">
                 <div id="main_menu_error"></div>
                 <button class="pushable" onclick="createRoom()">
                     <span class="front">

@@ -1,0 +1,12 @@
+Update 1.0.1:
+    - Cleaned Code
+    - Added animations for opponents hovering and drawing cards
+    - Chat Scrolling
+    - Optimized draw function
+    - Updated card place animations
+Update 1.0.2:
+    - Added UNO mechanic
+    - Classic Gamemode
+    - Basic Room Settings
+    - Achievements
+    - Manual Plus 4 and Change color mechanics
