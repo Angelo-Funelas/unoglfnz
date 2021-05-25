@@ -1,7 +1,7 @@
 var socket;
 function setup() {
-    socket = io.connect('https://unoglfnz.herokuapp.com/');
-    //socket = io.connect('http://localhost:3000/');
+    //socket = io.connect('https://unoglfnz.herokuapp.com/');
+    socket = io.connect('http://localhost:3000/');
     //Server Events
     socket.on('UpdateGame', UpdateGame);
     socket.on('updatePlayers', updatePlayers);
@@ -14,6 +14,8 @@ function setup() {
     socket.on('updatePlayerCards', updatePlayerCards);
     socket.on('message', Message);
     socket.on('opponenthover', hoverCard);
+    socket.on('uno_mech_start', uno_mech_start)
+    socket.on('uno_mech_finish', uno_mech_finish)
     //Client Events
     socket.on('disconnect', disconnect);
 };
@@ -90,6 +92,7 @@ function placeCardClient(data){
     new_card.style.top = `${top}%`;
     new_card.style.left = `${left}%`;
     new_card.draggable = false;
+    playsound('place_sfx');
     document.getElementById('table_card_container').appendChild(new_card);
 }
 function updatePlayers(data){
@@ -156,6 +159,69 @@ function drawAnimation(owner, src) {
     }
 }
 /* GAME MECHANICS AREA */
+//Uno Mechanic
+var startTime, endTime;
+const keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+function checkkeypressed(event) {
+    if (event.keyCode == randomkey+65) {
+        uno_mech_end();
+    }
+}
+function uno_mech_start(data) {
+    console.log(`recieved uno mech signal`)
+    var uno_p1 = data.uno_p1;
+    var opponent = data.opponent;
+    randomkey = data.keycode;
+    uno_mech_player = '';
+    if((ClientID == uno_p1) || (ClientID == opponent.id)) {
+        if(ClientID == uno_p1) {
+            uno_mech_player = 'uno_p1';
+        } else {
+            uno_mech_player = 'opponent';
+        }
+        if(typeof bailunomech !== 'undefined') {
+            clearTimeout(bailunomech);
+        }
+        document.getElementById('uno_speed_prompt').style.display = 'block';
+        startTime = new Date();
+        var keyname = keys[randomkey];
+        console.log(`${keyname.toUpperCase()}`)
+        document.getElementById('key_inner').innerText = `${keyname.toUpperCase()}`;
+        document.addEventListener("keydown", checkkeypressed);
+        bailunomech = setTimeout(uno_mech_end, 5000)
+    } else {
+        
+    }
+};
+function uno_mech_end() {
+    playsound('uno_pre_sfx');
+    endTime = new Date();
+    var timeDiff = endTime - startTime;
+    var data = {
+        player: uno_mech_player,
+        id: ClientID,
+        speed: timeDiff
+    }
+    socket.emit('uno_mech_results', data)
+    clearTimeout(bailunomech);
+    document.removeEventListener("keydown", checkkeypressed);
+    document.getElementById('uno_speed_prompt').style.display = 'none';
+}
+function uno_mech_finish(data) {
+    if(data.winnerID == ClientID) {
+        console.log('You won the uno_mech fight')
+    } else if(data.loserID == ClientID) {
+        console.log('You lost the uno_mech fight')
+        if(data.plus == 'plus') {
+            requestCard()
+            requestCard()
+        }
+    }
+    if(data.plus == 'noplus') {
+        playsound('uno_sfx');
+    }
+    
+}
 //start the game
 function startGame() {
     socket.emit('startGame');
@@ -163,6 +229,12 @@ function startGame() {
 //request from server
 function requestCard(){
     socket.emit('requestCard');
+}
+//playsound function
+function playsound(audioID) {
+    document.getElementById(audioID).pause();
+    document.getElementById(audioID).currentTime = 0;
+    document.getElementById(audioID).play();
 }
 //get card from deck
 function recieveCard(data){
@@ -179,6 +251,7 @@ function recieveCard(data){
     new_card.draggable = false;
     new_card.onmouseover = function(){sendHover(this)};
     drawAnimation('self', new_card.src);
+    playsound('card_sfx');
     hand.appendChild(new_card);
     sendPlayerData()
 }

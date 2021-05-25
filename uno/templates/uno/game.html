@@ -72,9 +72,10 @@
         <div id="main_menu" class="screen">
             <div id="devlog">
                 <h3>Dev Logs</h3>
-                v1.0.0:
+                v1.0.2:
                 <ul>
-                    <li>Deployed Repository Publicly</li>
+                    <li>Added Uno Mechanic</li>
+                    <li>Added basic sound effects</li>
                 </ul>
                 v1.0.1:
                 <ul>
@@ -84,16 +85,20 @@
                     <li class="highlight">Fixed multiple deck inconsistencies causing players to get 2 or more exactly the same cards</li>
                     <li>Updated card place animations</li>
                 </ul>
+                v1.0.0:
+                <ul>
+                    <li>Deployed Repository Publicly</li>
+                </ul>
             </div>
             <div class="main_menu_menu">
                 <img src="{% static 'uno/logo.png' %}" id="uno_logo"><br>
-                <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"></div><input type="text" maxlength="12" class="themeinput" id="nickname" placeholder="Name">
-                <div id="profile_container">
+                <div class="player_card_main"><img id="ClientProfilePicture" src="{% static 'uno/profiles/hutao.jpg' %}" class="mm_avatar shadow"  onclick="$('#profile_container').fadeIn(0)"><div id="profile_container">
                     Choose
                     <div id="profile_container_pics">
 
                     </div>
-                </div>
+                </div></div><input type="text" maxlength="12" class="themeinput" id="nickname" placeholder="Name">
+                
                 <input type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code">
                 <div id="main_menu_error"></div>
                 <button class="pushable" onclick="createRoom()">
@@ -104,6 +109,13 @@
             </div>
         </div>
         <div id="play_area" class="screen">
+            <div id="uno_speed_prompt">
+                <div id="key_outer">
+                    <div id="key_inner">
+                        
+                    </div>
+                </div>
+            </div>
             <img src="{% static 'uno/table.png' %}" id="game_table">
             <img src="{% static 'uno/arrow.png' %}" id="game_table_arrow">
             <img src="{% static 'uno/deck.png' %}" id="uno_deck" onclick="requestCard()">
@@ -136,6 +148,10 @@
         <script src="{% static 'uno/unogame.js' %}?v=1.0.1"></script>
         <script src="{% static 'uno/mainmenu.js' %}?v=1.0.1"></script>
         <!-- AUDIO FILES -->
+        <audio preload="auto" src="{% static 'uno/sounds/card.wav' %}" id="card_sfx"></audio>
+        <audio preload="auto" src="{% static 'uno/sounds/place.wav' %}" id="place_sfx"></audio>
+        <audio preload="auto" src="{% static 'uno/sounds/uno_pre.wav' %}" id="uno_pre_sfx"></audio>
+        <audio preload="auto" src="{% static 'uno/sounds/uno.wav' %}" id="uno_sfx"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/menu.mp3' %}" id="menumusic" loop="true"></audio>
         <script>
             //menu music

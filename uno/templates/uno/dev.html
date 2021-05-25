@@ -26,11 +26,36 @@
                 animation: anim_spprompt .25s ease-out;
             }
             @keyframes anim_spprompt {
-                0% {height: 0px;}
-                100% {height: 100px;}
+                0% {height: 0px; opacity: 0}
+                100% {height: 100px; opacity: 1}
+            }
+            #key_outer {
+                background: #95a5a6;
+                border-radius: 5px;
+                padding: 8px 8px 8px 8px;
+                width: 60px;
+                height: 60px;
+                margin-left: auto;
+                margin-right: auto;
+                animation: spamkey .15s infinite;
+            }
+            #key_inner {
+                background: #bdc3c7;
+                border-radius: 5px;
+            }
+            @keyframes spamkey {
+                0% {transform: scale(1.2)}
+                40% {transform: scale(0.8)}
+                100% {transform: scale(1)}
             }
         </style>
-        <div id="uno_speed_prompt">test</div>
+        <div id="uno_speed_prompt">
+            <div id="key_outer">
+                <div id="key_inner">
+                    
+                </div>
+            </div>
+        </div>
         <div>
             <button onclick="start()">Start</button>
         </div>
@@ -42,28 +67,31 @@
                 return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
             }
             function checkkeypressed(event) {
-                if (event.keyCode == window.randomkey+65) {
+                if (event.keyCode == randomkey+65) {
                     end();
-                    document.removeEventListener("keydown", checkkeypressed);
-                document.getElementById('uno_speed_prompt').style.display = 'none';
                 }
             }
             var startTime, endTime;
             const keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
             function start() {
+                if(typeof bailunomech !== 'undefined') {
+                    clearTimeout(bailunomech);
+                }
                 document.getElementById('uno_speed_prompt').style.display = 'block';
                 startTime = new Date();
-                window.randomkey = getRandomIntInclusive(0, 25);
+                randomkey = getRandomIntInclusive(0, 25);
                 var keyname = keys[randomkey];
-                document.getElementById('uno_speed_prompt').innerText = `press ${keyname} - ${randomkey}`;
+                document.getElementById('key_inner').innerText = `${keyname.toUpperCase()}`;
                 document.addEventListener("keydown", checkkeypressed);
+                bailunomech = setTimeout(end, 5000)
             };
-
             function end() {
                 endTime = new Date();
-                var timeDiff = endTime - startTime; //in ms
-                // strip the ms
-                alert(`Response Time: ${timeDiff}`)
+                var timeDiff = endTime - startTime;
+                alert(`${timeDiff}ms`);
+                clearTimeout(bailunomech);
+                document.removeEventListener("keydown", checkkeypressed);
+                document.getElementById('uno_speed_prompt').style.display = 'none';
             }
         </script>
     </body>
