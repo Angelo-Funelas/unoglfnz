@@ -1,28 +1,45 @@
 body {
   font-family: ArialBold;
+  padding: 0px;
+    margin: 0px;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(47,54,64,1) 100%);
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
-/* Profiles Menu */
-#profile_container {
-  display: none;
-  background: white;
-  border-radius: 0px 25px 25px 25px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  padding: 10px;
-  width: 600px;
-  min-height: 100px;
-  text-align: left;
-  z-index: 1;
-}
-
 .shadow {
   filter: drop-shadow(0px 0px 4px #000000);
 -webkit-filter: drop-shadow(0px 0px 4px #000000);
 -moz-filter: drop-shadow(0px 0px 4px #000000);
 }
-
+#screenswitchtransitiondiv {
+  position: fixed;
+  background: black;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  box-shadow: 0px 0px 181px 157px rgba(0,0,0,0.75);
+  animation: screenswitchtransition .4s ease-in;
+  z-index: 10;
+}
+#screenswitchtransitionreversediv {
+  position: fixed;
+  background: black;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  animation-delay: 1s;
+  box-shadow: 0px 0px 181px 157px rgba(0,0,0,0.75);
+  animation: screenswitchtransition .4s ease-in reverse;
+  z-index: 10;
+}
+@keyframes screenswitchtransition {
+  0% {width: 0%}
+  100% {width: 100%}
+}
 .front_green {
   display: block;
   padding: 12px 42px;
@@ -32,21 +49,89 @@ body {
   color: white;
   transform: translateY(-6px);
 }
-
-.player_card_main {
+/* Profiles Menu */
+#profile_creation_container {
+  display: none;
+  background: #367286;
+  width: 500px;
+  height: 260px;
+  position: fixed;
+  top: 0px;
+  animation: dropdown .4s ease-out;
+  top: 50%;
+  left: 50%;
+  margin-top: -130px; /* Negative half of height. */
+  margin-left: -250px; /* Negative half of width. */
+  padding: 10px;
+  font-size: 20px;
+  color: #2DB5B8;
+  box-shadow: 0px 0px 0px 1000px rgba(0,0,0,0.60);
+}
+@keyframes dropdown {
+  0% {margin-top: -230px}
+  100% {margin-top: -130px}
+}
+.user_profile_container {
+  text-align: left;
+  border-radius: 25px;
+  width: 200px;
+  height: 72px;
+  padding: 20px;
+  background: #ff6b6b;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: inset 0px 0px 5px black;
+  transition: .2s;
   display: inline-block;
 }
-
-.mm_avatar {
+.user_profile_container_listed {
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  background: #f0932b;
+  margin: 2px;
+  box-shadow: inset 0px 0px 5px black;
+  transition: .2s;
   display: inline-block;
-  vertical-align: middle;
-  width: 80px;
-  height: 80px;
-  margin: 15px;
-  margin-left: 0px;
+  cursor: pointer;
+}
+.user_profile_container_listed:hover {
+  transform: scale(1.02);
+}
+.user_profile_icon {
+  cursor: pointer;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  border: 4px solid white;
+  filter: drop-shadow(0px 0px 6px black);
 }
-
+.user_profile_icon_listed {
+  cursor: pointer;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  margin: 4px;
+  transition: .2s;
+}
+.user_profile_icon_listed:hover {
+  transform: scale(1.02);
+}
+.user_profile_container .user_profile_name {
+  font-size: 16px;
+  position: absolute;
+  background: white;
+  border-radius: 15px;
+  margin: 4px 0px 0px 10px;
+  padding: 10px;
+  min-width: 40px;
+  max-width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .pushable_green {
   display: block;
   margin-left: auto;
@@ -86,10 +171,8 @@ body {
 #main_menu {
   display: fixed;
   text-align: center;
-  padding: 25px;
   width: 100%;
   height: 100%;
-  z-index: 100;
 }
 
 #play_area {
@@ -99,31 +182,18 @@ body {
 }
 
 #uno_logo {
-  width: 250px;
+  width: 220px;
+  margin-top: 15px;
   margin-bottom: 15px;
 }
-
 .main_menu_menu {
   padding: 15px;
-  min-height: 500px;
+  padding-top: 40px;
+  min-height: 300px;
   width: 400px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 15px;
+  background: rgb(47, 54, 64);
   margin-left: auto;
   margin-right: auto;
-}
-#devlog {
-  position: fixed;
-  padding: 10px;
-  font-size: 12px;
-  text-align: left;
-  background: white;
-  height: 400px;
-  width: 200px;
-  overflow-y: scroll;
-}
-li.highlight {
-  font-weight: bold;
 }
 .themeinput {
   margin-top: 15px;
@@ -147,8 +217,8 @@ li.highlight {
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: rgb(52,231,228);
-  background: linear-gradient(90deg, rgba(52,231,228,1) 5%, rgba(11,232,129,1) 81%);
+  margin: 0px;
+  padding: 0px;
 }
 .box-area {
   position: fixed;
@@ -157,6 +227,9 @@ li.highlight {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  z-index: -1;
 }
 .box-area li {
   position: absolute;
@@ -263,4 +336,85 @@ li.highlight {
   height: 100px;
   position: absolute;
   z-index: 4;
+}
+/* The switch - the box around the slider */
+.switch {
+  position: absolute;
+  display: inline-block;
+  width: 40px;
+  height: 22.67px;
+  margin-top: 1px;
+  margin-left: 5px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round::before {
+  border-radius: 50%;
+}
+.room_setting {
+  padding: 6px;
+  border-radius: 10px;
+  border: 2px solid white;
+  width: 115px;
+  white-space: nowrap;
+  font-size: 20px;
+  text-align: left;
+}
+#room_settings {
+  background: #1F857D;
+  width: 200px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+  text-align: left;
+  line-height: 25px;
 }

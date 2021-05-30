@@ -1,3 +1,13 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(47,54,64,1) 100%);
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 /* AGREEMENT BEGINNING */
 #agreement {
     display: block;
@@ -39,7 +49,7 @@
 
 /* Game Table */
 #game_table_board {
-    background: #394E67;
+    background: #a29bfe;
     border-radius: 50px;
     text-align: center;
     padding: 20px;
@@ -57,11 +67,6 @@
 .opponent_hand {
     text-align: center;
     white-space: nowrap;
-    width: 200px;
-    margin: 0px;
-    margin-top: 25px;
-    overflow: hidden;
-
 }
 .opponent_hand img {
     height: 50px;
@@ -82,13 +87,13 @@
 }
 #game_table_arrow {
     position: fixed;
-    width: 550px;
-    height: 550px;
+    width: 500px;
+    height: 500px;
     top: 50%;
     left: 50%;
-    margin-top: -275px; /* Negative half of height. */
-    margin-left: -275px; /* Negative half of width. */
-    animation: 5s spin linear infinite;
+    margin-top: -250px; /* Negative half of height. */
+    margin-left: -250px; /* Negative half of width. */
+    animation: 2s spin linear infinite;
 }
 #table_card_container {
     position: fixed;
@@ -131,7 +136,12 @@
     margin-right: auto;
     border-radius: 50%;
   }
-
+  
+  .title {
+    font-size: 10vw;
+    color: white;
+  }
+  
   canvas {
     width: 100%;
   }
@@ -154,7 +164,6 @@
     100% {width: 0px;}
 }
 #uno_deck {
-    cursor: pointer;
     position: fixed;
     height: 180px;
     width: 116.92px;
@@ -162,10 +171,6 @@
     left: 10%;
     margin-top: -90px; /* Negative half of height. */
     margin-left: -58.46px; /* Negative half of width. */
-    transition: .1s;
-}
-#uno_deck:hover {
-    filter: drop-shadow(0px 0px 10px yellow)
 }
 .uno_draw_animation {
     position: fixed;
@@ -204,17 +209,17 @@
 .table_card {
     position: fixed;
     height: 280px;
-    width: 180px;
+    width: 179.28px;
     position: fixed;
     top: 50%;
     left: 50%;
     margin-top: -140px; /* Negative half of height. */
-    margin-left: -90px; /* Negative half of width. */
+    margin-left: -89.64px; /* Negative half of width. */
     animation: .4s ease-out placeCard;
 }
 @keyframes placeCard {
-    0% {opacity: 0.75; transform: rotate(0deg) scale(2);}
-    100% {opacity: 1; transform: rotate(160deg) scale(1);}
+    0% {opacity: 0.6; transform: rotate(0deg) scale(2);}
+    100% {opacity: 1; transform: rotate(720deg) scale(1);}
 }
 .card_opponent {
     display: absolute;
@@ -236,26 +241,6 @@
     overflow: hidden;
     overflow-x: scroll;
     white-space: nowrap;
-    padding-bottom: 10px;
-}
-/* width */
-#playerhand::-webkit-scrollbar {
-  width: 2px;
-}
-
-/* Track */
-#playerhand::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.2);
-}
-
-/* Handle */
-#playerhand::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-#playerhand::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 #chatbox {
     padding: 10px;
@@ -286,7 +271,6 @@
     background: red;
     font-size: 25px;
     border-radius: 0px 0px 15px 0px;
-    z-index: 20;
 }
 #LeaveRoomButton img {
     width: 40px;
@@ -333,21 +317,8 @@
     100% {transform: scale(1)}
 }
 .opponent_container_id {
-    border-radius: 30px 30px 10px 10px;
+    border-radius: 20px 20px 10px 10px;
     width: 240px;
     height: 175px;
     background: white;
-    margin-left: 6px;
-    margin-right: 6px;
-    display: inline-block;
-    animation: .75s joinanimation ease-out;
-}
-
-@keyframes joinanimation {
-    0% { transform: scale(0.8) }
-    10% { transform: scale(1.4) }
-    30% { transform: scale(0.9) }
-    50% { transform: scale(1.2) }
-    80% { transform: scale(0.95) }
-    100% { transform: scale(1) }
 }

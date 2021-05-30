@@ -1,12 +1,31 @@
-Update 1.0.1:
+Update v1.0.1:
     - Cleaned Code
     - Added animations for opponents hovering and drawing cards
     - Chat Scrolling
     - Optimized draw function
     - Updated card place animations
-Update 1.0.2:
-    - Added UNO mechanic
-    - Classic Gamemode
-    - Basic Room Settings
-    - Player card customization
-    - Manual Plus 4 and Change color mechanics
+Update v1.0.2:
+    - Added UNO mechanics
+    - Added basic sfx
+Update v2.0.0:
+    - Update main menu
+    - Public Rooms
+    - Update Game Room and lobby
+    - Addded cookies for convenience
+    - Change color and plus mechanic
+    - Room Settings
+        - Game Loop [BETA]
+            - Stacking +2 cards
+            - Stacking like cards
+            - Draw until playable card
+        - Private
+        - Starting cards
+    - Optimized code
+    - winner screen --
+    - Invite Links
+    NOTES:
+        - PLUS 5 CARDS TO PLAYERS WHO FAILED UNO
+Update v2.1:
+    - New Card: Wild Card
+    - Performance update
+

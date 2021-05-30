@@ -1,7 +1,7 @@
 var socket;
 function setup() {
-    socket = io.connect('https://unoglfnz.herokuapp.com/');
-    //socket = io.connect('http://localhost:3000/');
+    //socket = io.connect('https://unoglfnz.herokuapp.com/');
+    socket = io.connect('http://localhost:3000/');
     //Server Events
     socket.on('UpdateGame', UpdateGame);
     socket.on('updatePlayers', updatePlayers);
@@ -27,39 +27,68 @@ function Client_RandomPP() {
         var ppcontainerpics = document.getElementById('profile_container_pics')
         var avatar = document.createElement("img");
         avatar.src = `/static/uno/profiles/${profilepictures[i]}.jpg`;
-        avatar.className = 'mm_avatar ';
-        avatar.onclick = function() {document.getElementById("ClientProfilePicture").src = this.src};
+        avatar.className = 'user_profile_icon_listed';
+        avatar.onclick = function() {document.getElementById("user_profile_icon").src = this.src; toggleCC('hide')};
         ppcontainerpics.appendChild(avatar);
     }
     //sets profile picture randomly
     var randompicvar = Math.floor(Math.random() * (10 - 0) + 0);
-    document.getElementById("ClientProfilePicture").src = `/static/uno/profiles/${profilepictures[randompicvar]}.jpg`;
+    document.getElementById("user_profile_icon").src = `/static/uno/profiles/${profilepictures[randompicvar]}.jpg`;
 }
 Client_RandomPP()
-document.body.addEventListener('click', documentClick, true); 
-function documentClick(){
-    $('#profile_container').fadeOut(0)
+function Client_Namecards() {
+    const colors = ['#ff9ff3', '#feca57', '#ff6b6b', '#48dbfb', '#1dd1a1', '#5f27cd']
+    for(var i = 0; i < colors.length ; i++) {
+        var container = document.getElementById('namecard_container')
+        var namecard = document.createElement("div");
+        namecard.style.background = colors[i];
+        namecard.className = 'user_profile_container_listed';
+        namecard.onclick = function() {document.getElementById("user_profile_container").style.background = this.style.background; toggleCC('hide')};
+        container.appendChild(namecard);
+    }
 }
+Client_Namecards()
+//document.body.addEventListener('click', documentClick, true); 
+//function documentClick(){
+//    $('#profile_container').fadeOut(0)
+//}
 //Shows Popup
 function Show_Popup(message){
+    switchState('main_menu');
     document.getElementById('PopupMessage').innerText = message;
     document.getElementById('Popup').style.display = "block";
 }
 function Close_Popup() {
     document.getElementById('Popup').style.display = "none";
-    switchState('main_menu')
-    document.getElementById('table_card_container').innerHTML = '';
 }
 //When client gets disconnected from server
 function disconnect(){
+    if (document.getElementById('main_menu').style == 'none') {
+        switchState('main_menu')
+    }
     Show_Popup('You have been disconnected from the server');
 }
 function switchState(state){
-    var allScreens = document.getElementsByClassName('screen');
-    for(var i = 0; i < allScreens.length ; i++) {
-        allScreens[i].style.display = "none";
+    var transition = document.createElement("div");
+    transition.id = 'screenswitchtransitiondiv';
+    document.getElementsByTagName('body')[0].appendChild(transition)
+    setTimeout(function() {
+        var allScreens = document.getElementsByClassName('screen');
+        for(var i = 0; i < allScreens.length ; i++) {
+            allScreens[i].style.display = "none";
+        }
+        document.getElementById(state).style.display = "block";
+        document.getElementById('screenswitchtransitiondiv').remove()
+        var rev_transition = document.createElement("div");
+        rev_transition.id = 'screenswitchtransitionreversediv';
+        rev_transition.addEventListener("animationend", function() {this.remove()});
+        document.getElementsByTagName('body')[0].appendChild(rev_transition)
+    }, 800);
+    document.getElementById('gamemusic').pause();
+    if (state == 'main_menu')  {
+        document.getElementById('menumusic').play()
     }
-    document.getElementById(state).style.display = "block";
+    
 }
 //New Method of communicating with server.
 function UpdateGame(data) {
@@ -96,35 +125,83 @@ function placeCardClient(data){
     document.getElementById('table_card_container').appendChild(new_card);
 }
 function updatePlayers(data){
+    playsound('join_sfx');
     document.getElementById('opponents-container').innerHTML = "";
     console.log(data);
     for(var i = 0; i < data.length ; i++){
         if(data[i].id != ClientID){
-            console.log('player ' + data[i].name + ' connected');
             var new_opponent = document.createElement("div");
-            new_opponent.id = data[i].id;
-            new_opponent.className = 'opponent_display';
+            var opponent_container = document.createElement("div");
             var avatar = document.createElement("img");
+            var name = document.createElement("span");
+            name.className = 'user_profile_name';
+            name.innerText = data[i].name;
+            new_opponent.id = data[i].id;
+            new_opponent.className = 'user_profile_container';
+            new_opponent.style.background = data[i].color;
             avatar.src = data[i].pp;
-            avatar.className = 'avatar';
+            opponent_container.className = 'opponent_container_id';
+            avatar.className = 'user_profile_icon';
             //Create opponent deck
             var hand = document.createElement("div");
             hand.className = 'opponent_hand';
             new_opponent.appendChild(avatar);
-            new_opponent.innerHTML += data[i].name;
-            new_opponent.appendChild(hand)
-            document.getElementById("opponents-container").appendChild(new_opponent);
+            new_opponent.appendChild(name);
+            new_opponent.appendChild(hand);
+            opponent_container.appendChild(new_opponent);
+            document.getElementById("opponents-container").appendChild(opponent_container);
         }
     }
 }
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+function SetDefaultsFromCookies() {
+    document.getElementById("user_profile_icon").src = '/static/uno/profiles/hutao.jpg';
+    document.getElementById('user_profile_name').value = getCookie('nickname');
+    document.getElementById('user_profile_container').style.background = getCookie('color');
+    if (getCookie('pp') != "") {
+        document.getElementById("user_profile_icon").src = getCookie('pp')
+    }
+}
+SetDefaultsFromCookies()
+function toggleCC(stat) {
+    var menu = document.getElementById('profile_creation_container')
+    if (stat == 'show') {
+        $('#profile_creation_container').fadeIn(200)
+    } else if (stat == 'hide') {
+        $('#profile_creation_container').fadeOut(200)
+    }
+}
 function createRoom() {
+    playsound('play_sfx');
     window.roomName = document.getElementById('roomNameInput').value;
-    window.nickname = document.getElementById('nickname').value;
+    window.nickname = document.getElementById('user_profile_name').value;
+    window.color = document.getElementById('user_profile_container').style.background;
+    window.pp = document.getElementById("user_profile_icon").src;
+    document.cookie = `nickname=${nickname}`;
+    document.cookie = `color=${color}`;
+    document.cookie = `pp=${pp}`;
+    var menu_music = document.getElementById('menumusic');
+    menu_music.pause();
     if(roomName != "" && nickname != ""){
         var join_info = {
             nickname: window.nickname,
             roomname: window.roomName,
-            profilepic: document.getElementById("ClientProfilePicture").src
+            color: document.getElementById("user_profile_container").style.background,
+            profilepic: document.getElementById("user_profile_icon").src
         }
         socket.emit('joinRoom', join_info)
         document.getElementById('roomID').value = roomName
@@ -135,6 +212,7 @@ function createRoom() {
 }
 function confirmedRoomJoin(data) {
     switchState('play_area')
+    document.getElementById('table_card_container').innerHTML = '';
     document.getElementById('game_table_board').style.display = 'block';
     document.getElementById('playerhand').innerHTML = '';
     document.getElementById('Chat_Container').innerHTML = '';
@@ -236,6 +314,11 @@ function playsound(audioID) {
     document.getElementById(audioID).currentTime = 0;
     document.getElementById(audioID).play();
 }
+//Leave Room
+function LeaveRoom() {
+    switchState('main_menu');
+    socket.emit('LeaveRoom');
+}
 //get card from deck
 function recieveCard(data){
     var hand = document.getElementById('playerhand')
@@ -280,6 +363,10 @@ function sendPlayerData(){
 //When server says game has started
 socket.on('gameStarted', gameStarted);
 function gameStarted(data){
+    var gamemusic = document.getElementById('gamemusic');
+    gamemusic.currentTime = 0;
+    gamemusic.play();
+    $('#menumusic')[0].volume = 0;
     document.getElementById('game_table_board').style.display = 'none';
     var handLoop = data.hand;
     for (let i = 0; i < handLoop; i++) {

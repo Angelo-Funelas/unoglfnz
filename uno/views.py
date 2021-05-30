@@ -7,7 +7,10 @@ from django.urls import reverse
 
 def game(request):
     return render(request, "uno/game.html")
-
+def invite(request, roomcode):
+    return render(request, "uno/game.html", {
+        "roomcode": roomcode
+    })
 def index(request):
     return HttpResponseRedirect(reverse('joinroom'))
 
