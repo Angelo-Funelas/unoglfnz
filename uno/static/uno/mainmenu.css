@@ -189,6 +189,7 @@ body {
 .main_menu_menu {
   padding: 15px;
   padding-top: 40px;
+  padding-bottom: 40px;
   min-height: 300px;
   width: 400px;
   background: rgb(47, 54, 64);

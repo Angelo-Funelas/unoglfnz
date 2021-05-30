@@ -2,6 +2,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta property="og:title" content="UNO by --------" />
+        {% if roomcode %}
+        <meta property="og:title" content="You have been invited to join {{roomcode}}" />
+        {% endif %}
+        <meta property="og:description" content="Uno but scuffed" />
+        <meta property="og:url" content="fello.pythonanywhere.com/uno" />
+        <meta property="og:image" content="{% static 'uno/preview.png' %}" />
+        <link rel="icon" href="{% static 'uno/logo.png' %}">
         <title>Uno BETA by --------</title>
         <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.8">
         <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.8">
