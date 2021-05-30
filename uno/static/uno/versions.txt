@@ -7,12 +7,14 @@ Update v1.0.1:
 Update v1.0.2:
     - Added UNO mechanics
     - Added basic sfx
+Update v1.0.8:
+    - Mostly Visual Update
 Update v2.0.0:
     - Update main menu
     - Public Rooms
     - Update Game Room and lobby
     - Addded cookies for convenience
-    - Change color and plus mechanic
+    - Change color and plus mechanic --
     - Room Settings
         - Game Loop [BETA]
             - Stacking +2 cards
