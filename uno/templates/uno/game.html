@@ -2,7 +2,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% if roomcode %}
             <meta property="og:title" content="You have been invited to join {{roomcode}}" />
+        {% else %}
+            <meta property="og:title" content="UNO by --------" />
+        {% endif %}
         <meta property="og:description" content="Uno but scuffed" />
         <meta property="og:url" content="fello.pythonanywhere.com/uno" />
         <meta property="og:image" content="{% static 'uno/preview.png' %}" />
