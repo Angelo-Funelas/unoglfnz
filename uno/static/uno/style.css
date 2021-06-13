@@ -33,7 +33,6 @@
 #music_icon {
     position: fixed;
     width: 50px;
-    z-index: 1;
     right: 0px;
 }
 
@@ -144,10 +143,12 @@
     animation-play-state: paused;
     margin: 0px;
     display: inline-block;
+    margin-right: -50px;
+    transform: translate(0px, 20px);
 }
 .card:hover {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-right: -20px;
+    transform: translate(0px, 0px);
 }
 @keyframes exit {
     0% {width: 80px;}
@@ -179,24 +180,8 @@
     transition: all .2s ease-out;
 }
 @keyframes drawanimation {
-    0% {
-        position: fixed;
-        height: 180px;
-        width: 116.92px;
-        top: 40%;
-        left: 10%;
-        margin-top: -90px; /* Negative half of height. */
-        margin-left: -58.46px; /* Negative half of width. */
-    }
-    100% {
-        position: fixed;
-        height: 180px;
-        width: 116.92px;
-        top: 90%;
-        left: 50%;
-        margin-top: -90px; /* Negative half of height. */
-        margin-left: -58.46px; /* Negative half of width. */
-    }
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(550px, 380px) scale(0.5); }
 }
 #main_menu_error {
     color: red;
@@ -223,7 +208,7 @@
     
 }
 #playerhand {
-    height: 100px;
+    height: 120px;
     position: absolute;
     text-align: center;
     bottom: 0px;
@@ -256,24 +241,6 @@
 /* Handle on hover */
 #playerhand::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-#chatbox {
-    padding: 10px;
-    background: white;
-    border-radius: 15px;
-    position: fixed;
-    height: 300px;
-    width: 220px;
-    top: 72%;
-    right: 6%;
-    margin-top: -150px; /* Negative half of height. */
-    margin-right: -60px; /* Negative half of width. */
-}
-#chatbox input {
-}
-#Chat_Container {
-    height: 260px;
-    overflow-y: scroll;
 }
 .small_card {
     width: 10px;

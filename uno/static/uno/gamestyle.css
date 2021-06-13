@@ -1,0 +1,73 @@
+:root {
+--red: #ED1C24;
+--yellow: #FFDE00;
+--green: #00A651;
+--blue: #0095DA;
+}
+#chngclr_container {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+    z-index: 0;
+    display: none;
+}
+#chngclr_container .red:hover {transform: translate(0px, 140px) scale(1.05);}
+#chngclr_container .yellow:hover {transform: translate(170px, 0px) scale(1.05);}
+#chngclr_container .green:hover {transform: translate(0px, -140px) scale(1.05);}
+#chngclr_container .blue:hover {transform: translate(-170px, 0px) scale(1.05);}
+#chngclr_container .red {
+    background: rgba(237,28,36,0.75);
+    animation: .8s chngcoloroptions_red ease-in-out;
+    transform: translate(0px, 140px);
+    box-shadow: 0px 0px 95px 9px #ED1C24 inset;
+}
+#chngclr_container .yellow {
+    background: rgba(255,222,0,0.75);
+    animation: 0.6s chngcoloroptions_yellow ease-in-out;
+    transform: translate(170px, 0px);
+    box-shadow: 0px 0px 95px 9px #FFDE00 inset;
+}
+#chngclr_container .green {
+    background: rgba(0,166,81,0.75);
+    animation: 0.2s chngcoloroptions_green ease-in-out;
+    transform: translate(0px, -140px);
+    box-shadow: 0px 0px 95px 9px #00A651 inset;
+}
+#chngclr_container .blue {
+    background: rgba(0,149,218,0.75);
+    animation: 0.4s chngcoloroptions_blue ease-in-out;
+    transform: translate(-170px, 0px);
+    box-shadow: 0px 0px 95px 9px #0095DA inset;
+}
+#chngclr_container .chngclr_option {
+    width: 160px;
+    height: 160px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -80px;
+    margin-left: -80px;
+    border-radius: 15px;
+    transition: .2s;
+    cursor: pointer;
+}
+@keyframes chngcoloroptions_red {
+    0% { transform: translate(0px, 0px); opacity: 0 }
+    100% { transform: translate(0px, 140px); opacity: 1 }
+}
+@keyframes chngcoloroptions_yellow {
+    0% { transform: translate(0px, 0px); opacity: 0 }
+    100% { transform: translate(170px, 0px); opacity: 1 }
+}
+@keyframes chngcoloroptions_green {
+    0% { transform: translate(0px, 0px); opacity: 0 }
+    100% { transform: translate(0px, -140px); opacity: 1 }
+}
+@keyframes chngcoloroptions_blue {
+    0% { transform: translate(0px, 0px); opacity: 0 }
+    100% { transform: translate(-170px, 0px); opacity: 1 }
+}

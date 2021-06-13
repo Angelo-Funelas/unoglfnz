@@ -9,12 +9,14 @@ Update v1.0.2:
     - Added basic sfx
 Update v1.0.8:
     - Mostly Visual Update
+Update V1.0.9:
+    - Change color
+    - PLUS 5 CARDS TO PLAYERS WHO FAILED UNO
+    - Stop players from drawing cards when waiting
+    - loading circle when disconnected from server and joining inactive server
 Update v2.0.0:
-    - Update main menu
     - Public Rooms
-    - Update Game Room and lobby
-    - Addded cookies for convenience
-    - Change color and plus mechanic --
+    - PLUS mechanic --
     - Room Settings
         - Game Loop [BETA]
             - Stacking +2 cards
@@ -25,9 +27,9 @@ Update v2.0.0:
     - Optimized code
     - winner screen --
     - Invite Links
-    NOTES:
-        - PLUS 5 CARDS TO PLAYERS WHO FAILED UNO
+    Major Bugs:
+        - Dont add players to users if they already exist
 Update v2.1:
     - New Card: Wild Card
     - Performance update
-
+    - Challenging a player

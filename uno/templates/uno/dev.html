@@ -11,87 +11,23 @@
                 src: url({% static 'uno/ArialBold.ttf' %});
             }
             body {
-  font-family: ArialBold;
-    background: rgb(2,0,36);
-    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(47,54,64,1) 100%);
-    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-            .user_profile_container {
-                border-radius: 20px;
-                width: 200px;
-                padding: 20px;
-                background: #f0932b;
-                box-shadow: inset 0px 0px 5px black;
-            }
-            .user_profile_container .user_profile_icon {
-                display: inline-block;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                border: 4px solid white;
-                filter: drop-shadow(0px 0px 6px black)
-            }
-            .user_profile_container .user_profile_name {
-                font-size: 16px;
-                position: absolute;
-                background: white;
-                border-radius: 15px;
-                margin: 4px 0px 0px 10px;
-                padding: 10px;
-                max-width: 100px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-            .opponent_container_id {
-                border-radius: 20px 20px 10px 10px;
-                width: 240px;
-                height: 175px;
-                background: white;
+                font-family: ArialBold;
+                /* background: rgb(2,0,36); */
+                /* background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(47,54,64,1) 100%); */
+                -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
             }
         </style>
-            <div id="sampleID">
-                <div class="user_profile_container">
-                    <img src="{% static 'uno/profiles/hutao.jpg' %}" class="user_profile_icon">
-                    <span class="user_profile_name">Kyokkuho</span>
-                </div>
+        <div id="chat_container">
+            <div id="chatbox">
+                TEST
             </div>
-            
+            <input type="text" id="chatbox_input" placeholder="&quot;/&quot; to chat.">
+        </div>
+        
         <script>
             
-            function getRandomIntInclusive(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-            }
-            function checkkeypressed(event) {
-                if (event.keyCode == randomkey+65) {
-                    end();
-                }
-            }
-            var startTime, endTime;
-            const keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-            function start() {
-                if(typeof bailunomech !== 'undefined') {
-                    clearTimeout(bailunomech);
-                }
-                document.getElementById('uno_speed_prompt').style.display = 'block';
-                startTime = new Date();
-                randomkey = getRandomIntInclusive(0, 25);
-                var keyname = keys[randomkey];
-                document.getElementById('key_inner').innerText = `${keyname.toUpperCase()}`;
-                document.addEventListener("keydown", checkkeypressed);
-                bailunomech = setTimeout(end, 5000)
-            };
-            function end() {
-                endTime = new Date();
-                var timeDiff = endTime - startTime;
-                alert(`${timeDiff}ms`);
-                clearTimeout(bailunomech);
-                document.removeEventListener("keydown", checkkeypressed);
-                document.getElementById('uno_speed_prompt').style.display = 'none';
-            }
         </script>
     </body>
 </html>

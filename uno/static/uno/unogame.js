@@ -14,12 +14,17 @@ function setup() {
     socket.on('updatePlayerCards', updatePlayerCards);
     socket.on('message', Message);
     socket.on('opponenthover', hoverCard);
-    socket.on('uno_mech_start', uno_mech_start)
-    socket.on('uno_mech_finish', uno_mech_finish)
+    socket.on('uno_mech_start', uno_mech_start);
+    socket.on('uno_mech_finish', uno_mech_finish);
+    socket.on('gameStarted', gameStarted);
     //Client Events
     socket.on('disconnect', disconnect);
+    socket.on('connect', connected)
 };
 setup();
+function connected() {
+    document.getElementById('loader').style.display = 'none';
+}
 //profile choose menu
 function Client_RandomPP() {
     const profilepictures = ['barbara', 'eula', 'fischl', 'ganyu', 'hutao', 'keqing', 'klee', 'mona', 'noel', 'qiqi', 'sucrose']
@@ -48,10 +53,6 @@ function Client_Namecards() {
     }
 }
 Client_Namecards()
-//document.body.addEventListener('click', documentClick, true); 
-//function documentClick(){
-//    $('#profile_container').fadeOut(0)
-//}
 //Shows Popup
 function Show_Popup(message){
     switchState('main_menu');
@@ -63,6 +64,7 @@ function Close_Popup() {
 }
 //When client gets disconnected from server
 function disconnect(){
+    document.getElementById('loader').style.display = 'block';
     if (document.getElementById('main_menu').style == 'none') {
         switchState('main_menu')
     }
@@ -83,12 +85,14 @@ function switchState(state){
         rev_transition.id = 'screenswitchtransitionreversediv';
         rev_transition.addEventListener("animationend", function() {this.remove()});
         document.getElementsByTagName('body')[0].appendChild(rev_transition)
+        if (state == 'main_menu')  {
+            document.getElementById('menumusic').play()
+            document.body.style.background = 'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(47,54,64,1) 100%)';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundAttachment = 'fixed';
+        }
     }, 800);
     document.getElementById('gamemusic').pause();
-    if (state == 'main_menu')  {
-        document.getElementById('menumusic').play()
-    }
-    
 }
 //New Method of communicating with server.
 function UpdateGame(data) {
@@ -106,8 +110,12 @@ function placeCardServer(){
         folder: folder,
         filename: filename
     };
+    if ( (this.dataset.filename == 'plus4') || (this.dataset.filename == 'chngclr') ) {
+        SelectColor(this.dataset.filename)
+    }
     socket.emit('placeCard', card_info);
 }
+//Places a card on the client's screen
 function placeCardClient(data){
     var new_card = document.createElement("img");
     var folder = data.folder;
@@ -123,12 +131,37 @@ function placeCardClient(data){
     new_card.draggable = false;
     playsound('place_sfx');
     document.getElementById('table_card_container').appendChild(new_card);
+    window.tablecard = {
+        "folder": folder,
+        "filename": filename
+    }
+    updatePlayableCards()
+    if(folder == 'red') {var color = '#B7161E'}
+    else if(folder == 'yellow') {var color = '#CCB000'}
+    else if(folder == 'green') {var color = '#007237'}
+    else if(folder == 'blue') {var color = '#0074A5'}
+    bg_transition(color)
+}
+function updatePlayableCards() {
+    var cards = $("#playerhand > img");
+    for(var i = 0; i < cards.length ; i++) {
+        var card = cards[i];
+        var cardfolder = card.src.split("/")[5];
+        var cardnum = card.src.split("/")[6].split(".")[0];
+        console.log(`${cardfolder} - ${cardnum}`)
+        if ( ((cardnum == tablecard.filename) || (cardfolder == 'specials') || (tablecard.folder == cardfolder)) && (card.style.animationPlayState != 'running') ) {
+            card.setAttribute('onclick','placeCardServer.call(this)');
+        } else {
+            card.setAttribute('onclick','');
+        }
+    };
+    //filter: grayscale(100%);
 }
 function updatePlayers(data){
     playsound('join_sfx');
     document.getElementById('opponents-container').innerHTML = "";
     console.log(data);
-    for(var i = 0; i < data.length ; i++){
+    for(var i = 0; i < data.length ; i++) {
         if(data[i].id != ClientID){
             var new_opponent = document.createElement("div");
             var opponent_container = document.createElement("div");
@@ -213,9 +246,9 @@ function createRoom() {
 function confirmedRoomJoin(data) {
     switchState('play_area')
     document.getElementById('table_card_container').innerHTML = '';
-    document.getElementById('game_table_board').style.display = 'block';
+    document.getElementById('game_table_board-dimmer').style.display = 'block';
     document.getElementById('playerhand').innerHTML = '';
-    document.getElementById('Chat_Container').innerHTML = '';
+    document.getElementById('chatbox').innerHTML = '';
     if(data == 'owner'){
         document.getElementById('startgame').style.display = 'block';
     } else {
@@ -226,15 +259,12 @@ function roomstartederror(){
     document.getElementById('main_menu_error').innerText = "Room game already started. Iniwan ka :'(";
 }
 function drawAnimation(owner, src) {
-    if (owner == 'self') {
-        var hand = document.getElementById('play_area')
-        var draw_card = document.createElement("img");
-        draw_card.src = src;
-        draw_card.className = 'uno_draw_animation';
-        draw_card.addEventListener("animationend", function() {this.remove()});
-        hand.appendChild(draw_card);
-    } else if (owner == 'opponent') {
-    }
+    var hand = document.getElementById('play_area')
+    var draw_card = document.createElement("img");
+    draw_card.src = src;
+    draw_card.className = 'uno_draw_animation';
+    draw_card.addEventListener("animationend", function() {this.remove()});
+    hand.appendChild(draw_card);
 }
 /* GAME MECHANICS AREA */
 //Uno Mechanic
@@ -293,6 +323,9 @@ function uno_mech_finish(data) {
         if(data.plus == 'plus') {
             requestCard()
             requestCard()
+            requestCard()
+            requestCard()
+            requestCard()
         }
     }
     if(data.plus == 'noplus') {
@@ -320,7 +353,7 @@ function LeaveRoom() {
     socket.emit('LeaveRoom');
 }
 //get card from deck
-function recieveCard(data){
+async function recieveCard(data){
     var hand = document.getElementById('playerhand')
     var new_card = document.createElement("img");
     var folder = data.folder;
@@ -337,9 +370,10 @@ function recieveCard(data){
     playsound('card_sfx');
     hand.appendChild(new_card);
     sendPlayerData()
+    updatePlayableCards()
 }
 function validateMessage() {
-    var chatbox = document.getElementById('ClientChatBox')
+    var chatbox = document.getElementById('chatbox_input')
     Message('send', chatbox.value)
     chatbox.value = '';
     return false
@@ -348,8 +382,8 @@ function Message(type, message) {
     if (type == 'send') {
         socket.emit('message', `[${window.nickname}]: ${message}`);
     } else {
-        document.getElementById('Chat_Container').innerHTML += `<br>${message}`;
-        $('#Chat_Container').animate({scrollTop: $('#Chat_Container').prop("scrollHeight")}, 500);
+        document.getElementById('chatbox').innerHTML += `<br>${message}`;
+        $('#chatbox').animate({scrollTop: $('#chatbox').prop("scrollHeight")}, 500);
     }
 }
 function sendPlayerData(){
@@ -361,17 +395,11 @@ function sendPlayerData(){
     socket.emit('updateCards', data)
 }
 //When server says game has started
-socket.on('gameStarted', gameStarted);
-function gameStarted(data){
+function gameStarted(){
     var gamemusic = document.getElementById('gamemusic');
     gamemusic.currentTime = 0;
     gamemusic.play();
-    $('#menumusic')[0].volume = 0;
-    document.getElementById('game_table_board').style.display = 'none';
-    var handLoop = data.hand;
-    for (let i = 0; i < handLoop; i++) {
-        requestCard()
-    }
+    document.getElementById('game_table_board-dimmer').style.display = 'none';
 }
 //hover effects
 function sendHover(card) {
@@ -416,4 +444,13 @@ function updatePlayerCards(data) {
         cut_back.style.marginRight = '-10px';
         opponent_hand.appendChild(cut_back);
     }
+}
+//bg transition
+function bg_transition(color) {
+    var playarea = document.getElementById('play_area')
+    var transitioner = document.createElement("div");
+    transitioner.className = 'bg_transition';
+    transitioner.style.background = color;
+    transitioner.addEventListener("animationend", function() {this.remove(); document.body.style.background = color;});
+    playarea.appendChild(transitioner);
 }

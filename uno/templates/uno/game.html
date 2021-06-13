@@ -12,16 +12,18 @@
         <meta property="og:image" content="{% static 'uno/preview.png' %}" />
         <link rel="icon" href="{% static 'uno/logo.png' %}">
         <title>Uno BETA by --------</title>
-        <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.8">
-        <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
         <style>
             @font-face {
                 font-family: ArialBold;
                 src: url({% static 'uno/ArialBold.ttf' %});
             }
         </style>
+        <link rel="stylesheet" href="{% static 'uno/mainmenu.css' %}?v=1.0.9">
+        <link rel="stylesheet" href="{% static 'uno/style.css' %}?v=1.0.9">
+        <link rel="stylesheet" href="{% static 'uno/gamestyle.css' %}?v=1.0.9">
+        <link rel="stylesheet" href="{% static 'uno/gui.css' %}?v=1.0.9">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
     </head>
     <body>
         <!-- Message Disclaimer and PRELOADER-->
@@ -65,9 +67,9 @@
             <div class="main_menu_menu">
                 <div class="user_profile_container" id="user_profile_container" style="background: #ff6b6b;">
                     <img src="{% static 'uno/profiles/ganyu.jpg' %}" id="user_profile_icon" class="user_profile_icon"  onclick="toggleCC('show')">
-                    <input class="user_profile_name" id="user_profile_name" placeholder="Nickname" value="" maxlength="12">
+                    <input autocomplete="off" class="user_profile_name" id="user_profile_name" placeholder="Nickname" value="" maxlength="12">
                 </div>
-                <input type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code" value="{{roomcode}}">
+                <input autocomplete="off" type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code" value="{{roomcode}}">
                 <div id="main_menu_error"></div>
                 <button class="pushable" onclick="createRoom()">
                     <span class="front">
@@ -101,25 +103,37 @@
             <img src="{% static 'uno/table.png' %}" id="game_table">
             <img src="{% static 'uno/arrow.png' %}" id="game_table_arrow">
             <img src="{% static 'uno/deck.png' %}" id="uno_deck" onclick="requestCard()">
-            <div id="chatbox">
+            <div id="chat_container">
+                <div id="chatbox"></div>
                 <form onsubmit="return validateMessage()">
-                    <input type="text" id="ClientChatBox" placeholder="&quot;/&quot; to chat. ">
-                    <div id="Chat_Container"></div>
+                    <input type="text" id="chatbox_input" placeholder="&quot;/&quot; to chat." autocomplete="off">
                 </form>
             </div>
             <div id="table_card_container"></div>
-            <div id="game_table_board">
-                Waiting for players.
-                <button class="pushable" id="startgame" onclick="startGame()" style="display: none;">
-                    <span class="front">
-                        Start
-                    </span>
-                </button> 
+            <div class="background-dimmer" id="game_table_board-dimmer">
+                <div id="game_table_board">
+                    Waiting for players.
+                    <button class="pushable" id="startgame" onclick="startGame()" style="display: none;">
+                        <span class="front">
+                            Start
+                        </span>
+                    </button> 
+                </div>
             </div>
             <div id="opponents-container">
             </div>
             <div id="playerhand">
             </div>
+            <div id="chngclr_container">
+                <div class="chngclr_option red" onclick="SelectedColor('red')"></div>
+                <div class="chngclr_option yellow" onclick="SelectedColor('yellow')"></div>
+                <div class="chngclr_option green" onclick="SelectedColor('green')"></div>
+                <div class="chngclr_option blue" onclick="SelectedColor('blue')"></div>
+            </div>
+        </div>
+        <!-- LOADING CIRCLE -->
+        <div class="background-dimmer" id="loader">
+            <div class="loader"></div>
         </div>
         <input type="text" id="roomID" class="hidden">
         <style>
@@ -127,8 +141,10 @@
                 display: none;
             }
         </style>
-        <script src="{% static 'uno/unogame.js' %}?v=1.0.8"></script>
-        <script src="{% static 'uno/mainmenu.js' %}?v=1.0.8"></script>
+        <script src="{% static 'uno/unogame.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/mainmenu.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/unoevents.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/gui.js' %}?v=1.0.9"></script>
         <!-- AUDIO FILES -->
         <audio preload="auto" src="{% static 'uno/sounds/card.wav' %}" id="card_sfx"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/play.wav' %}" id="play_sfx"></audio>
