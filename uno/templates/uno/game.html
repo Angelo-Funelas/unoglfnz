@@ -3,15 +3,15 @@
 <html>
     <head>
         {% if roomcode %}
-            <meta property="og:title" content="You have been invited to join {{roomcode}}" />
+            <meta property="og:title" content="You have been invited to join &quot;{{roomcode}}&quot;" />
         {% else %}
-            <meta property="og:title" content="UNO by --------" />
+            <meta property="og:title" content="UNO by Fello" />
         {% endif %}
         <meta property="og:description" content="Uno but scuffed" />
         <meta property="og:url" content="fello.pythonanywhere.com/uno" />
         <meta property="og:image" content="{% static 'uno/preview.png' %}" />
-        <link rel="icon" href="{% static 'uno/logo.png' %}">
-        <title>Uno BETA by --------</title>
+        <link rel="icon" href="{% static 'uno/game_assets/logo.png' %}">
+        <title>Uno by Fello</title>
         <style>
             @font-face {
                 font-family: ArialBold;
@@ -29,20 +29,12 @@
         <!-- Message Disclaimer and PRELOADER-->
         <div id="agreement_container">
             <div id="agreement">
-                This is just for fun, there may be some bugs. Enjoy :)
-                <div id="loading_assets">Loading Assets 0/54</div>
+                Loading Assets . . .
+                <span id="loading_assets">Loading Assets 0/54</span>
                 <button class="pushable_green" id="iunderstand" onclick="document.getElementById('agreement_container').style.display = 'none'; readMessage()">
-                    <span class="front_green">
-                    I Understand.
-                    </span>
+                    <span class="front_green">I Understand.</span>
                 </button>
-                <div id="assetloader">
-                    <img src="{% static 'uno/red/0.png' %}" class="preload"><img src="{% static 'uno/red/1.png' %}" class="preload"><img src="{% static 'uno/red/2.png' %}" class="preload"><img src="{% static 'uno/red/3.png' %}" class="preload"><img src="{% static 'uno/red/4.png' %}" class="preload"><img src="{% static 'uno/red/5.png' %}" class="preload"><img src="{% static 'uno/red/6.png' %}" class="preload"><img src="{% static 'uno/red/7.png' %}" class="preload"><img src="{% static 'uno/red/8.png' %}" class="preload"><img src="{% static 'uno/red/9.png' %}" class="preload"><img src="{% static 'uno/red/+2.png' %}" class="preload"><img src="{% static 'uno/red/stop.png' %}" class="preload"><img src="{% static 'uno/red/reverse.png' %}" class="preload">
-                    <img src="{% static 'uno/yellow/0.png' %}" class="preload"><img src="{% static 'uno/yellow/1.png' %}" class="preload"><img src="{% static 'uno/yellow/2.png' %}" class="preload"><img src="{% static 'uno/yellow/3.png' %}" class="preload"><img src="{% static 'uno/yellow/4.png' %}" class="preload"><img src="{% static 'uno/yellow/5.png' %}" class="preload"><img src="{% static 'uno/yellow/6.png' %}" class="preload"><img src="{% static 'uno/yellow/7.png' %}" class="preload"><img src="{% static 'uno/yellow/8.png' %}" class="preload"><img src="{% static 'uno/yellow/9.png' %}" class="preload"><img src="{% static 'uno/yellow/+2.png' %}" class="preload"><img src="{% static 'uno/yellow/stop.png' %}" class="preload"><img src="{% static 'uno/yellow/reverse.png' %}" class="preload">
-                    <img src="{% static 'uno/green/0.png' %}" class="preload"><img src="{% static 'uno/green/1.png' %}" class="preload"><img src="{% static 'uno/green/2.png' %}" class="preload"><img src="{% static 'uno/green/3.png' %}" class="preload"><img src="{% static 'uno/green/4.png' %}" class="preload"><img src="{% static 'uno/green/5.png' %}" class="preload"><img src="{% static 'uno/green/6.png' %}" class="preload"><img src="{% static 'uno/green/7.png' %}" class="preload"><img src="{% static 'uno/green/8.png' %}" class="preload"><img src="{% static 'uno/green/9.png' %}" class="preload"><img src="{% static 'uno/green/+2.png' %}" class="preload"><img src="{% static 'uno/green/stop.png' %}" class="preload"><img src="{% static 'uno/green/reverse.png' %}" class="preload">
-                    <img src="{% static 'uno/blue/0.png' %}" class="preload"><img src="{% static 'uno/blue/1.png' %}" class="preload"><img src="{% static 'uno/blue/2.png' %}" class="preload"><img src="{% static 'uno/blue/3.png' %}" class="preload"><img src="{% static 'uno/blue/4.png' %}" class="preload"><img src="{% static 'uno/blue/5.png' %}" class="preload"><img src="{% static 'uno/blue/6.png' %}" class="preload"><img src="{% static 'uno/blue/7.png' %}" class="preload"><img src="{% static 'uno/blue/8.png' %}" class="preload"><img src="{% static 'uno/blue/9.png' %}" class="preload"><img src="{% static 'uno/blue/+2.png' %}" class="preload"><img src="{% static 'uno/blue/stop.png' %}" class="preload"><img src="{% static 'uno/blue/reverse.png' %}" class="preload">
-                    <img src="{% static 'uno/table.png' %}" class="preload">
-                </div>            
+                <div id="loading_preloader"></div>  
             </div>
         </div>
         <!-- Animated Background -->
@@ -55,35 +47,28 @@
                 You have been disconnected from the server.
             </div>
             <button class="pushable_green" onclick="Close_Popup()">
-                <span class="front_green">
-                  Ok
-                </span>
-              </button>
+                <span class="front_green">Ok</span>
+            </button>
         </div>
-        <img src="{% static 'uno/symbols/unmuted.png' %}" id="music_icon" onclick="toggleunmute()">
+        <img src="{% static 'uno/game_assets/icon_settings.png' %}" id="settings_icon">
         <!-- Main Menu-->
         <div id="main_menu" class="screen">
-            <img src="{% static 'uno/logo.png' %}" id="uno_logo">
             <div class="main_menu_menu">
+                <img src="{% static 'uno/game_assets/logo.png' %}" id="uno_logo">
                 <div class="user_profile_container" id="user_profile_container" style="background: #ff6b6b;">
                     <img src="{% static 'uno/profiles/ganyu.jpg' %}" id="user_profile_icon" class="user_profile_icon"  onclick="toggleCC('show')">
                     <input autocomplete="off" class="user_profile_name" id="user_profile_name" placeholder="Nickname" value="" maxlength="12">
                 </div>
                 <input autocomplete="off" type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code" value="{{roomcode}}">
                 <div id="main_menu_error"></div>
-                <button class="pushable" onclick="createRoom()">
-                    <span class="front">
-                      Play
-                    </span>
-                  </button>
-                  <!-- Room Settings -->
-                  <div id="room_settings">
-                        Private
-                        <label class="switch"><input type="checkbox"><span class="slider round"></span></span></label><br>
-                        Game Loop [BETA]
-                        <label class="switch"><input type="checkbox"><span class="slider round"></span></span></label>
-                  </div>
-                  
+                <button class="pushable" id="Play_Button" onclick="createRoom()">
+                    <span class="front">Play</span>
+                </button>
+                <!-- Room Settings 
+                <div id="room_settings">
+                    Private <label class="switch"><input type="checkbox"><span class="slider round"></span></span></label><br>
+                    Game Loop [BETA] <label class="switch"><input type="checkbox"><span class="slider round"></span></span></label>
+                </div>-->
             </div>
         </div>
          <!-- PLAYER CARD CREATION -->
@@ -132,19 +117,12 @@
             </div>
         </div>
         <!-- LOADING CIRCLE -->
-        <div class="background-dimmer" id="loader">
+        <div class="background-dimmer" id="loader" style="display: none;">
             <div class="loader"></div>
         </div>
-        <input type="text" id="roomID" class="hidden">
-        <style>
-            #roomID {
-                display: none;
-            }
-        </style>
-        <script src="{% static 'uno/unogame.js' %}?v=1.0.9"></script>
-        <script src="{% static 'uno/mainmenu.js' %}?v=1.0.9"></script>
-        <script src="{% static 'uno/unoevents.js' %}?v=1.0.9"></script>
-        <script src="{% static 'uno/gui.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/scripts/client.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/scripts/uno.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/scripts/interface.js' %}?v=1.0.9"></script>
         <!-- AUDIO FILES -->
         <audio preload="auto" src="{% static 'uno/sounds/card.wav' %}" id="card_sfx"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/play.wav' %}" id="play_sfx"></audio>

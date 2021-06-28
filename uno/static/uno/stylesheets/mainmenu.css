@@ -122,9 +122,12 @@ body {
 }
 .user_profile_container .user_profile_name {
   font-size: 16px;
+  font-family: ArialBold;
   position: absolute;
   background: white;
   border-radius: 15px;
+  outline: none;
+  cursor: default;
   margin: 4px 0px 0px 10px;
   padding: 10px;
   min-width: 40px;
@@ -169,7 +172,7 @@ body {
 }
 
 #main_menu {
-  display: fixed;
+  position: fixed;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -189,18 +192,20 @@ body {
   margin-bottom: 15px;
 }
 .main_menu_menu {
+  display: block;
   padding: 15px;
   padding-top: 40px;
   padding-bottom: 40px;
-  min-height: 300px;
-  width: 400px;
+  height: 100%;
+  width: 320px;
   background: rgb(47, 54, 64);
-  margin-left: auto;
-  margin-right: auto;
+
 }
 .themeinput {
   margin-top: 15px;
   font-size: 20px;
+  font-family: ArialBold;
+  cursor: default;
   -webkit-filter: drop-shadow(0px 0px 2px #000000);
   filter: drop-shadow(0px 0px 2px #000000);
   display: block;
@@ -324,6 +329,7 @@ body {
   padding: 12px 42px;
   border-radius: 12px;
   font-size: 1.25rem;
+  font-family: ArialBold;
   background: hsl(345deg 100% 47%);
   color: white;
   transform: translateY(-6px);

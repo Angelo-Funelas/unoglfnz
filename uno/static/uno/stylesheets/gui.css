@@ -27,3 +27,14 @@
 #chatbox_input:focus {
     background: rgba(0,0,0,0.2);
 }
+#settings_icon {
+    position: fixed;
+    width: 80px;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+#Play_Button {
+    margin-top: 20px;
+}

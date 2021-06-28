@@ -29,13 +29,6 @@
     max-height: 204px;
     overflow: hidden;
 }
-
-#music_icon {
-    position: fixed;
-    width: 50px;
-    right: 0px;
-}
-
 /* Game Table */
 #game_table_board {
     background: #394E67;
