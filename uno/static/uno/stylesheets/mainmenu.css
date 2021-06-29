@@ -52,6 +52,7 @@ body {
 /* Profiles Menu */
 #profile_creation_container {
   display: none;
+  z-index: 2;
   background: #367286;
   width: 500px;
   height: 260px;
@@ -191,15 +192,24 @@ body {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-.main_menu_menu {
+#main_menu_menu {
   display: block;
+  position: fixed;
   padding: 15px;
   padding-top: 40px;
   padding-bottom: 40px;
   height: 100%;
   width: 320px;
   background: rgb(47, 54, 64);
-
+}
+#main_menu_sidebar {
+  display: block;
+  padding: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  height: 100%;
+  text-align: left;
+  margin-left: 350px;
 }
 .themeinput {
   margin-top: 15px;

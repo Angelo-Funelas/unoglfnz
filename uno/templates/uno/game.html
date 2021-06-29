@@ -50,13 +50,13 @@
                 <span class="front_green">Ok</span>
             </button>
         </div>
-        <img src="{% static 'uno/game_assets/icon_settings.png' %}" id="settings_icon">
+        <img src="{% static 'uno/game_assets/icon_settings.png' %}" id="settings_icon" onclick="ToggleSettings()">
         <!-- Main Menu-->
         <div id="main_menu" class="screen">
-            <div class="main_menu_menu">
+            <div id="main_menu_menu">
                 <img src="{% static 'uno/game_assets/logo.png' %}" id="uno_logo">
                 <div class="user_profile_container" id="user_profile_container" style="background: #ff6b6b;">
-                    <img src="{% static 'uno/profiles/ganyu.jpg' %}" id="user_profile_icon" class="user_profile_icon"  onclick="toggleCC('show')">
+                    <img src="" id="user_profile_icon" class="user_profile_icon"  onclick="toggleCC('show')">
                     <input autocomplete="off" class="user_profile_name" id="user_profile_name" placeholder="Nickname" value="" maxlength="12">
                 </div>
                 <input autocomplete="off" type="text" class="themeinput" id="roomNameInput" maxlength="12" placeholder="Room Code" value="{{roomcode}}">
@@ -70,24 +70,29 @@
                     Game Loop [BETA] <label class="switch"><input type="checkbox"><span class="slider round"></span></span></label>
                 </div>-->
             </div>
+            <div id="main_menu_sidebar">
+            </div>
         </div>
          <!-- PLAYER CARD CREATION -->
         <div id="profile_creation_container">
             Profile <div id="profile_container_pics"></div>
             Colors <div id="namecard_container"></div>
         </div>
+        <!-- SETTINGS CONTAINER -->
+        <div id="settings_container">
+            Volume <input id="volume_slider" type="range" min="0" max="100" value="60" oninput="UpdateVolume(this.value)" onchange="UpdateVolume(this.value)">
+        </div>
         <div id="play_area" class="screen">
-            <div id="LeaveRoomButton" onclick="LeaveRoom()"><img src="{% static 'uno/symbols/back.png' %}"></div>
+            <div id="LeaveRoomButton" onclick="LeaveRoom()"><img src="{% static 'uno/game_assets/back.png' %}"></div>
             <div id="uno_speed_prompt">
                 <div id="key_outer">
                     <div id="key_inner">
-                        
                     </div>
                 </div>
             </div>
-            <img src="{% static 'uno/table.png' %}" id="game_table">
-            <img src="{% static 'uno/arrow.png' %}" id="game_table_arrow">
-            <img src="{% static 'uno/deck.png' %}" id="uno_deck" onclick="requestCard()">
+            <img src="{% static 'uno/game_assets/table.png' %}" id="game_table">
+            <img src="{% static 'uno/game_assets/arrow.png' %}" id="game_table_arrow">
+            <img src="{% static 'uno/card_styles/deck.png' %}" id="uno_deck" onclick="requestCard()">
             <div id="chat_container">
                 <div id="chatbox"></div>
                 <form onsubmit="return validateMessage()">
@@ -117,7 +122,7 @@
             </div>
         </div>
         <!-- LOADING CIRCLE -->
-        <div class="background-dimmer" id="loader" style="display: none;">
+        <div class="background-dimmer" id="loader">
             <div class="loader"></div>
         </div>
         <script src="{% static 'uno/scripts/client.js' %}?v=1.0.9"></script>
@@ -132,36 +137,5 @@
         <audio preload="auto" src="{% static 'uno/sounds/uno.wav' %}" id="uno_sfx"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/menu.mp3' %}" id="menumusic" loop="true"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/letsplay.mp3' %}" id="gamemusic" loop="true"></audio>
-        <script>
-            //menu music
-            function readMessage() {
-                if (getCookie('music') == 'on') {
-                        $('#menumusic')[0].play();
-                        $('#menumusic')[0].volume = 0.6;
-                } else if (getCookie('music') == 'off') {
-                    toggleunmute()
-                    $('#menumusic')[0].play();
-                } else {
-                    document.cookie = `music=on`;
-                    readMessage()
-                }
-            }
-            function toggleunmute(){
-                var music_icon = document.getElementById('music_icon');
-                var menu_music = document.getElementById('menumusic');
-                var game_music = document.getElementById('gamemusic');
-                if (menu_music.volume == 0) {
-                    menu_music.volume = 0.6;
-                    game_music.volume = 0.6;
-                    music_icon.src = '/static/uno/symbols/unmuted.png';
-                    document.cookie = `music=on`;
-                } else {
-                    menu_music.volume = 0;
-                    game_music.volume = 0;
-                    music_icon.src = '/static/uno/symbols/muted.png';
-                    document.cookie = `music=off`;
-                }
-            }
-            </script>
     </body>
 </html>
