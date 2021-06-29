@@ -117,3 +117,21 @@
     margin-left: 10px;
     transform: translateY(8px);
 }
+#loading_assets_loadingbar {
+    width: 160px;
+    height: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px black solid;
+    padding: 1px;
+}
+#loading_assets_loadingbar div {
+    height: 100%;
+    width: 0%;
+    text-align: center;
+    background: black;
+    transition: width 1s ease;
+}
+#iunderstand {
+    display: none;
+}

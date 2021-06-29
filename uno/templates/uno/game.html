@@ -29,9 +29,11 @@
         <!-- Message Disclaimer and PRELOADER-->
         <div id="agreement_container">
             <div id="agreement">
-                Loading Assets . . .
-                <span id="loading_assets">Loading Assets 0/54</span>
-                <button class="pushable_green" id="iunderstand" onclick="document.getElementById('agreement_container').style.display = 'none'; readMessage()">
+                
+                <div id="loading_assets_loadingbar" value="0">
+                    <div></div>
+                </div>
+                <button class="pushable_green" id="iunderstand" onclick="$('#agreement_container').fadeOut(100); readMessage()">
                     <span class="front_green">I Understand.</span>
                 </button>
                 <div id="loading_preloader"></div>  
@@ -128,6 +130,7 @@
         <script src="{% static 'uno/scripts/client.js' %}?v=1.0.9"></script>
         <script src="{% static 'uno/scripts/uno.js' %}?v=1.0.9"></script>
         <script src="{% static 'uno/scripts/interface.js' %}?v=1.0.9"></script>
+        <script src="{% static 'uno/scripts/preloader.js' %}?v=1.0.9"></script>
         <!-- AUDIO FILES -->
         <audio preload="auto" src="{% static 'uno/sounds/card.wav' %}" id="card_sfx"></audio>
         <audio preload="auto" src="{% static 'uno/sounds/play.wav' %}" id="play_sfx"></audio>

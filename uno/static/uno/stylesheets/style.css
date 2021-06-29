@@ -6,12 +6,20 @@
     padding: 15px;
     z-index: 3;
     text-align: center;
-    width: 200px;
+    width: 250px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 200px;
 }
-
+#agreement::before {
+    content: 'Loading Assets . . .';
+    animation: loadingassets 2s infinite linear;
+}
+@keyframes loadingassets {
+    0% {content: 'Loading Assets .'}
+    33% {content: 'Loading Assets . .'}
+    66% {content: 'Loading Assets . . .'}
+}
 #agreement_container {
     background: black;
     position: fixed;
